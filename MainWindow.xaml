@@ -1,0 +1,30 @@
+﻿<Window x:Class="WpfApp6.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp6"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="590" Width="900" FontFamily="Trebuchet MS" WindowStartupLocation="CenterScreen"
+        WindowStyle="None" AllowsTransparency="True" Background="Transparent">
+
+    <Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.9*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Border CornerRadius="20 0 0 20" Background="#fefefe"/>
+            <Border CornerRadius="0 20 20 0" MouseDown="Border_MouseDown" Background="#c73f69" Grid.Column="1"/>
+            <Border BorderBrush="Black" BorderThickness="1"/>
+        </Grid>
+        <Button x:Name="save1" Content="Сохранить" HorizontalAlignment="Left" Margin="670,557,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.506,0.516" Width="220" FontSize="14" Click="save1_Click"/>
+        <Button x:Name="sozdanie" Content="Создать" HorizontalAlignment="Left" Margin="445,557,0,0" VerticalAlignment="Top" Width="220" FontSize="14" Click="sozdanie_Click"/>
+        <Button x:Name="delete" Content="Удалить запись" HorizontalAlignment="Left" Margin="10,557,0,0" VerticalAlignment="Top" Width="405" FontSize="14" Click="delete_Click"/>
+        <Button x:Name="zakritie" Content="X" HorizontalAlignment="Left" Margin="856,0,0,0" VerticalAlignment="Top" Height="37" Width="44" FontSize="20" Click="zakritie_Click"/>
+        <Button x:Name="svernut" Content="-" HorizontalAlignment="Left" Margin="812,0,0,0" VerticalAlignment="Top" Height="37" Width="44" FontSize="24" Click="zakritie_Click"/>
+    </Grid>
+
+
+</Window>
