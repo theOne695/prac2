@@ -24,7 +24,7 @@
         <Button x:Name="delete" Content="Удалить запись" HorizontalAlignment="Left" Margin="10,557,0,0" VerticalAlignment="Top" Width="405" FontSize="14" Click="delete_Click"/>
         <Button x:Name="zakritie" Content="X" HorizontalAlignment="Left" Margin="856,0,0,0" VerticalAlignment="Top" Height="37" Width="44" FontSize="20" Click="zakritie_Click"/>
         <Button x:Name="svernut" Content="-" HorizontalAlignment="Left" Margin="812,0,0,0" VerticalAlignment="Top" Height="37" Width="44" FontSize="24" Click="zakritie_Click"/>
+
+        <DatePicker Name="datePicker1" IsDropDownOpen="True" SelectedDateFormat="Short" />
     </Grid>
-
-
 </Window>
