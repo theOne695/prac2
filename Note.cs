@@ -8,8 +8,8 @@ namespace WpfApp5
 {
     public class Note
     {
-        public string NameNote { get; set; }
-        public string DescriptionNote { get; set; }
-        public DateTime DateNote { get; set; }
+        public string name { get; set; }
+        public string description { get; set; }
+        public DateTime Data { get; set; }
     }
 }

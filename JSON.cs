@@ -10,24 +10,24 @@ namespace WpfApp5
 {
     internal class JSON
     {
-        public void JsonFileManager(string path, string fileName)
+        public void JsonFileManager(string chto_to, string f_n)
         {
-            if (!File.Exists(path + fileName))
+            if (!File.Exists(chto_to + f_n))
             {
-                File.Create(path + fileName);
+                File.Create(chto_to + f_n);
             }
         }
-        public static List<Note> JsonReader(List<Note> notes, string path, string fileName)
+        public static List<Note> JsonReader(List<Note> notes, string chto_to, string f_n)
         {
             notes = new List<Note>();
 
-            if (!File.Exists(path + fileName))
+            if (!File.Exists(chto_to + f_n))
             {
-                new JSON().JsonFileManager(path, fileName);
+                new JSON().JsonFileManager(chto_to, f_n);
             }
             else
             {
-                string jsonString = File.ReadAllText(path + fileName);
+                string jsonString = File.ReadAllText(chto_to + f_n);
                 if (jsonString.Length != 0)
                 {
                     notes = JsonConvert.DeserializeObject<List<Note>>(jsonString);
@@ -36,16 +36,16 @@ namespace WpfApp5
             return notes;
         }
 
-        public static void JsonWriter(string path, string fileName, List<Note> notesJson)
+        public static void JsonWriter(string chto_to, string f_n, List<Note> notesJson)
         {
-            if (!File.Exists(path + fileName))
+            if (!File.Exists(chto_to + f_n))
             {
-                new JSON().JsonFileManager(path, fileName);
+                new JSON().JsonFileManager(chto_to, f_n);
             }
             else
             {
                 string jsonString = JsonConvert.SerializeObject(notesJson);
-                File.WriteAllText(path + fileName, jsonString);
+                File.WriteAllText(chto_to + f_n, jsonString);
             }
         }
     }

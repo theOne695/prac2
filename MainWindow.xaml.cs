@@ -18,55 +18,44 @@ namespace WpfApp5
 {
     public partial class MainWindow : Window
     {
-        string path;
-        string fileName;
+        string chto_to;
+        string f_n;
 
         List<Note> notes;
 
 
-        void JsonFileManager(string path, string fileName)
+        void Json_file(string chto_to, string f_n)
         {
-            if (!File.Exists(path + fileName))
+            if (!File.Exists(chto_to + f_n))
             {
-                File.Create(path + fileName);
+                File.Create(chto_to + f_n);
             }
         }
 
-
-        //void ReFillerListBox(ListBox listBox, List<Note> notes)
-        //{
-        //    listBox.Items.Clear();
-        //    foreach (Note note in notes)
-        //    {
-        //        listBox.Items.Add(note.NameNote);
-        //    }
-        //}
-
-        void ReFillerListBox(ListBox listBox, List<Note> notes, DateTime dateTime)
+        void replay(ListBox listBox, List<Note> notes, DateTime dateTime)
         {
             listBox.Items.Clear();
             foreach (Note note in notes)
             {
-                if (note.DateNote.Date == dateTime.Date)
-                    listBox.Items.Add(note.NameNote);
+                if (note.Data.Date == dateTime.Date)
+                    listBox.Items.Add(note.name);
             }
         }
 
-        void deleteNote(List<Note> notes, string name)
+        void DeLeTe(List<Note> notes, string name)
         {
             foreach (Note item in notes)
             {
-                if (item.NameNote == name)
+                if (item.name == name)
                 {
                     notes.Remove(item);
                     break;
                 }
             }
-            if (dpDataObject.Text != "")
+            if (data.Text != "")
             {
-
-                ReFillerListBox(lbNameObjects, notes, DateTime.Parse(dpDataObject.Text));
-                JSON.JsonWriter(path, fileName, notes);
+                replay(NameObjects, notes, DateTime.Parse(data.Text));
+                JSON.JsonWriter(chto_to, f_n, notes);
             }
         }
 
@@ -74,25 +63,25 @@ namespace WpfApp5
         {
             foreach (Note item in notes)
             {
-                if (item.NameNote == name)
+                if (item.name == name)
                 {
-                    if (dpDataObject.Text == "")
+                    if (data.Text == "")
                     {
                         MessageBox.Show("Выбирете дату для заметки!");
                     }
                     else
                     {
-                        if (tbNameObject.Text.Trim() == "" && tbDescriptionObject.Text.Trim() == "")
-                            MessageBox.Show("Все данные об оьъекте должны быть заполнены!");
+                        if (naimenovanie.Text.Trim() == "" && description_object.Text.Trim() == "")
+                            MessageBox.Show("Все данные объекта должны быть заполнены!");
                         else
                         {
-                            Note note = notes.Find(x => x.NameNote == name);
-                            note.NameNote = tbNameObject.Text;
-                            note.DescriptionNote = tbDescriptionObject.Text;
-                            note.DateNote = DateTime.Parse(dpDataObject.Text);
+                            Note note = notes.Find(x => x.name == name);
+                            note.name = naimenovanie.Text;
+                            note.description = description_object.Text;
+                            note.Data = DateTime.Parse(data.Text);
 
-                            ReFillerListBox(lbNameObjects, notes, note.DateNote);
-                            JSON.JsonWriter(path, fileName, notes);
+                            replay(NameObjects, notes, note.Data);
+                            JSON.JsonWriter(chto_to, f_n, notes);
                         }
                     }
                     break;
@@ -100,19 +89,19 @@ namespace WpfApp5
             }
         }
 
-        bool IsExistNoteWithName(List<Note> notes, string name)
+        bool a_note_with_the_name(List<Note> notes, string name)
         {
             foreach (Note item in notes)
-                if (item.NameNote == name)
+                if (item.name == name)
                     return true;
             return false;
         }
 
-        Note getFilterNote(List<Note> notes, string name)
+        Note filter(List<Note> notes, string name)
         {
             if (notes.Count != 0)
                 foreach (Note note in notes)
-                    if (note.NameNote == name)
+                    if (note.name == name)
                         return note;
             return null;
         }
@@ -122,23 +111,23 @@ namespace WpfApp5
         {
             InitializeComponent();
 
-            fileName = "File.json";
-            path = Directory.GetCurrentDirectory() + "/";
+            f_n = "File.json";
+            chto_to = Directory.GetCurrentDirectory() + "/";
 
-            JsonFileManager(path, fileName);
+            Json_file(chto_to, f_n);
 
-            notes = JSON.JsonReader(notes, path, fileName);
+            notes = JSON.JsonReader(notes, chto_to, f_n);
 
-            dpDataObject.Text = DateTime.Now.ToString();
-            ReFillerListBox(lbNameObjects, notes, DateTime.Now);
+            data.Text = DateTime.Now.ToString();
+            replay(NameObjects, notes, DateTime.Now);
 
         }
 
-        private void btDeleteObject_Click(object sender, RoutedEventArgs e)
+        private void delete_click(object sender, RoutedEventArgs e)
         {
-            if (lbNameObjects.SelectedIndex > -1)
+            if (NameObjects.SelectedIndex > -1)
             {
-                deleteNote(notes, lbNameObjects.SelectedItem.ToString());
+                DeLeTe(notes, NameObjects.SelectedItem.ToString());
             }
             else
             {
@@ -146,50 +135,43 @@ namespace WpfApp5
             }
         }
 
-        private void tbCreateObject_Click(object sender, RoutedEventArgs e)
+        private void create_click(object sender, RoutedEventArgs e)
         {
-            if (dpDataObject.Text == "")
+            if (data.Text == "")
             {
                 MessageBox.Show("Выбирете дату для заметки!");
             }
             else
             {
-                if (tbNameObject.Text.Trim() == "" && tbDescriptionObject.Text.Trim() == "")
-                    MessageBox.Show("Все данные об оьъекте должны быть заполнены!");
+                if (naimenovanie.Text.Trim() == "" && description_object.Text.Trim() == "")
+                    MessageBox.Show("Все данные объекта должны быть заполнены!");
                 else
                 {
-                    if (IsExistNoteWithName(notes, tbNameObject.Text.Trim()))
+                    if (a_note_with_the_name(notes, naimenovanie.Text.Trim()))
                     {
-                        MessageBox.Show("Объект уже существует в системе!");
+                        MessageBox.Show("Такой объект уже существует!");
                     }
                     else
                     {
                         Note note = new Note();
-                        note.NameNote = tbNameObject.Text.Trim();
-                        note.DescriptionNote = tbDescriptionObject.Text.Trim();
-                        note.DateNote = DateTime.Parse(dpDataObject.Text).Date;
+                        note.name = naimenovanie.Text.Trim();
+                        note.description = description_object.Text.Trim();
+                        note.Data = DateTime.Parse(data.Text).Date;
                         notes.Add(note);
 
-                        ReFillerListBox(lbNameObjects, notes, note.DateNote);
-                        JSON.JsonWriter(path, fileName, notes);
-
-
-
-
-                        tbNameObject.Clear();
-                        tbDescriptionObject.Clear();
-                        MessageBox.Show("Объект добавлен!");
+                        replay(NameObjects, notes, note.Data);
+                        JSON.JsonWriter(chto_to, f_n, notes);
                     }
                 }
             }
 
         }
 
-        private void btSaveObject_Click(object sender, RoutedEventArgs e)
+        private void save_click(object sender, RoutedEventArgs e)
         {
-            if (lbNameObjects.SelectedIndex > -1)
+            if (NameObjects.SelectedIndex > -1)
             {
-                updateNote(notes, lbNameObjects.SelectedItem.ToString());
+                updateNote(notes, NameObjects.SelectedItem.ToString());
             }
             else
             {
@@ -197,23 +179,23 @@ namespace WpfApp5
             }
         }
 
-        private void lbNameObjects_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (lbNameObjects.SelectedIndex != -1)
+            if (NameObjects.SelectedIndex != -1)
             {
-                string s = lbNameObjects.SelectedItem.ToString();
-                Note note = getFilterNote(notes, s);
-                tbNameObject.Text = note.NameNote;
-                tbDescriptionObject.Text = note.DescriptionNote;
-                dpDataObject.Text = note.DateNote.ToString();
+                string s = NameObjects.SelectedItem.ToString();
+                Note note = filter(notes, s);
+                naimenovanie.Text = note.name;
+                description_object.Text = note.description;
+                data.Text = note.Data.ToString();
             }
         }
 
-        private void dpDataObject_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        private void data_changed(object sender, SelectionChangedEventArgs e)
         {
             if (notes.Count != 0)
             {
-                ReFillerListBox(lbNameObjects, notes, DateTime.Parse(dpDataObject.Text));
+                replay(NameObjects, notes, DateTime.Parse(data.Text));
             }
         }
     }

@@ -18,16 +18,16 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <DatePicker Name="dpDataObject" Grid.ColumnSpan="3" Margin="10 10 10 0" SelectedDateChanged="dpDataObject_SelectedDateChanged"/>
-        <ListBox x:Name="lbNameObjects" SelectionChanged="lbNameObjects_SelectionChanged" Grid.Row="1" Grid.Column="0" Margin="10 0 0 0"/>
+        <DatePicker Name="data" Grid.ColumnSpan="3" Margin="10 10 10 0" SelectedDateChanged="data_changed"/>
+        <ListBox x:Name="NameObjects" SelectionChanged="SelectionChanged" Grid.Row="1" Grid.Column="0" Margin="10 0 0 0"/>
         <StackPanel Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2">
             <Label Content="Наименование:" HorizontalAlignment="Center"/>
-            <TextBox Name="tbNameObject" Margin="0 0 10 0"/>
+            <TextBox Name="naimenovanie" Margin="0 0 10 0"/>
             <Label Content="Описание:" HorizontalAlignment="Center"/>
-            <TextBox Name="tbDescriptionObject" Margin="0 0 10 0"/>
+            <TextBox Name="description_object" Margin="0 0 10 0"/>
         </StackPanel>
-        <Button x:Name="btDeleteObject" Click="btDeleteObject_Click" Margin="10 0 0 10" Content="Удалить" Grid.Row="2" Grid.Column="0"/>
-        <Button x:Name="tbCreateObject" Click="tbCreateObject_Click" Margin="0 0 0 10" Content="Создать" Grid.Row="2" Grid.Column="1"/>
-        <Button x:Name="btSaveObject" Click="btSaveObject_Click" Margin="0 0 10 10" Content="Сохранить" Grid.Row="2" Grid.Column="2"/>
+        <Button x:Name="delete" Click="delete_click" Margin="10 0 0 10" Content="Удалить" Grid.Row="2" Grid.Column="0"/>
+        <Button x:Name="create" Click="create_click" Margin="0 0 0 10" Content="Создать" Grid.Row="2" Grid.Column="1"/>
+        <Button x:Name="Save" Click="save_click" Margin="0 0 10 10" Content="Сохранить" Grid.Row="2" Grid.Column="2"/>
     </Grid>
 </Window>
